@@ -1,7 +1,13 @@
 import { refs, defaultUserData } from './base';
 import { LocStorage } from './local-storage';
-import { openModal } from './modal';
+import { openModal } from './auth-modal';
 import { signOutOfFirebase } from './firebase';
+
+// -------------------------------
+import { LocStorageMovies } from './locstr-movies';
+import { clearRenderMoviesList } from './render-list';
+
+// -------------------------------
 
 export function checkUserAuthState() {
   const userData = LocStorage.getItem();
@@ -38,4 +44,17 @@ function onBtnSignOutClick() {
   LocStorage.removeItem();
   checkUserAuthState();
   refs.btnGetUserProfile.disabled = true;
+  // -------------------------------
+  LocStorageMovies.clearMoviesLists();
+  clearRenderMoviesList();
+}
+
+// -------------------------------
+
+export function checkAuthUser() {
+  const userData = LocStorage.getItem();
+  if (!userData || !userData.name) {
+    return null;
+  }
+  return true;
 }

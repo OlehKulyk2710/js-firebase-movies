@@ -13,12 +13,31 @@
 </header>
 
 <div class="btns">
-    <button type="button" class="btn get-userProfile" disabled>GET currentUser profile <br><span>see DevTools/Console</span></button>
-    <button type="button" class="btn signOut-extra visually-hidden">Sign out</button>
-    <button type="button" class="btn get">GET data</button>
-    <button type="button" class="btn post">POST data</button>
-    <button type="button" class="btn del">Clear database</button>
+    <button type="button" class="btn get-userProfile" disabled>GET currentUser profile <br><span>see
+            DevTools/Console</span></button>
+    <div>        
+        <button type="button" class="btn signOut-extra visually-hidden">Sign out</button>
+        <button type="button" class="btn get">GET data (btn Library)</button>
+        <button type="button" class="btn post visually-hidden">POST data</button>
+        <button type="button" class="btn del">Clear database</button>
+    </div>
+  <div>
+    <button type="button" class="btn btn-watched__list" js_add="watched">Add to watched</button>
+    <button type="button" class="btn btn-queue__list" js_add="queue">Add to queue</button>
+    <button type="button" class="btn btn-watched" js_state="watched">WATCHED</button>
+    <button type="button" class="btn btn-queue" js_state="queue">QUEUE</button>
+    <button type="button" class="btn btn__delete-w" js_del="watched">Delete from WATCHED</button>
+    <button type="button" class="btn btn__delete-q" js_del="queue">Delete from QUEUE</button>
+  </div>
 </div>
-
+<div class="watched">WATCHED list:
+    <div js-watched></div>
+</div>
+<div class="queue">QUEUE list:
+    <div js-queue></div>
+</div>
+<!-- <div class="render">Screen rendering:
+    <div js-render></div>
+</div> -->
 
 

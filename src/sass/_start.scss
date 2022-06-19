@@ -65,15 +65,33 @@ margin-bottom: 5px;
 
 }
 
-.btn {
-    margin-bottom: 10px;
+.get-userProfile {
+    margin-bottom: 30px;
 }
 
-.btn.get {
-    margin-top: 50px;
+.btns div {
+margin-bottom: 15px;
+}
+
+.btn-queue {
+    margin-right: 30px;
 }
 
 .get-userProfile span {
     font-size: 12px;
     color: red;
 }
+
+.watched,
+.queue,
+.render {
+    min-height: 100px;
+    outline: 1px solid red;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.watched {
+    margin-bottom: 10px;
+}
+

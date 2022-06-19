@@ -1,7 +1,9 @@
 import { usersData } from '../index';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { LocStorage } from './local-storage';
+import { LocStorageMovies, convertDataFromFrbToLs } from './locstr-movies';
 
+// -------------------------------------
 const URL =
   'https://filmoteka-project2-default-rtdb.europe-west1.firebasedatabase.app';
 const API = 'AIzaSyB6zHPU06WTT-Wfbp-gtmlww2BBH4EyQx0';
@@ -18,22 +20,24 @@ export function getDatafromFirebase() {
     .then(data => {
       if (!data) {
         Notify.failure('Your database is EMPTY. Push the POST data button.');
+        LocStorageMovies.clearMoviesLists();
         return;
       }
+      const convertedData = convertDataFromFrbToLs(data);
+      LocStorageMovies.setItem(convertedData);
 
-      Notify.success('To see your data, open DevTools/Console.');
-      console.log(data);
+      Notify.success('Your database is UPDATED');
     });
 }
 
-export function postDataToFirebase() {
+export function postDataToFirebase(data) {
   const userDtbName = getUserDtbName();
   if (!userDtbName) {
     return;
   }
   fetch(`${URL}/${userDtbName}.json`, {
     method: 'POST',
-    body: JSON.stringify(LocStorage.getItem()),
+    body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json',
     },
@@ -44,6 +48,19 @@ export function postDataToFirebase() {
     }
 
     Notify.success('Your database is updated. Push the GET data button.');
+  });
+}
+
+export function removeDataFromDb(id) {
+  const userDtbName = getUserDtbName();
+  if (!userDtbName) {
+    return;
+  }
+  fetch(`${URL}/${userDtbName}/${id}.json`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 }
 
@@ -76,7 +93,9 @@ export function createUserDtbName(currentUserData) {
 function getUserDtbName() {
   const userData = LocStorage.getItem();
   if (!userData || !userData.dbName) {
-    Notify.failure("User isn't authorized. Please Sign in or Register.");
+    Notify.failure(
+      'You are not authorized. Please sign in to your account or register.'
+    );
     return null;
   }
 
